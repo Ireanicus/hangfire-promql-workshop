@@ -7,15 +7,20 @@ services:
       - "9090:9090"
     volumes:
       - ./Prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-  web:
-    build: 
-      context: .
+  grafana:
+    image: grafana/grafana-enterprise
     restart: always
-    ports: 
-      - "50080:80"
-  web-mirror:
+    ports:
+      - "3000:3000"
+  web-1:
     build: 
       context: .
     restart: always
     ports: 
       - "51080:80"
+  web-2:
+    build: 
+      context: .
+    restart: always
+    ports: 
+      - "52080:80"

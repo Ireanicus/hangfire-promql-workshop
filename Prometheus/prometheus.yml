@@ -2,6 +2,9 @@ scrape_configs:
   - job_name: "web"
     static_configs:
       - targets: ["host.docker.internal:50080"]
-  - job_name: "web-mirror"
+  - job_name: "docker-web-1"
     static_configs:
       - targets: ["host.docker.internal:51080"]
+  - job_name: "docker-web-2"
+    static_configs:
+      - targets: ["host.docker.internal:52080"]
