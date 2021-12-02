@@ -1,10 +1,16 @@
+using App.Metrics;
+
 var builder = WebApplication.CreateBuilder(args);
 
 var services = builder.Services;
-    services.AddMetrics()
-    .AddMetricsEndpoints()
-    .AddMetricsReportingHostedService()
-    .AddMetricsTrackingMiddleware();
+    services
+        .AddMetrics(options =>
+        {
+            options.OutputMetrics.AsPrometheusPlainText();
+        })
+        .AddMetricsEndpoints()
+        .AddMetricsReportingHostedService()
+        .AddMetricsTrackingMiddleware();
 
 var app = builder.Build();
 
