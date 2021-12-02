@@ -7,3 +7,15 @@ services:
       - "9090:9090"
     volumes:
       - ./Prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+  web:
+    build: 
+      context: .
+    restart: always
+    ports: 
+      - "50080:80"
+  web-mirror:
+    build: 
+      context: .
+    restart: always
+    ports: 
+      - "51080:80"
