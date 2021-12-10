@@ -22,6 +22,17 @@ app.UseMetricsAllMiddleware();
 app.UseMetricsAllEndpoints();
 app.MapGet("/", () => "Hello World!");
 app.MapGet("/error", () => { throw new Exception("error"); });
+app.MapPost("/error", () => { throw new InvalidOperationException("error"); });
+app.MapGet("/notFound", context =>
+{
+    context.Response.StatusCode = 404;
+    return Task.CompletedTask;
+});
+app.MapGet("/unauthorized", context =>
+{
+    context.Response.StatusCode = 401;
+    return Task.CompletedTask;
+});
 app.MapGet("/customMetric", context =>
 {
     var metrics = context.RequestServices.GetRequiredService<IMetrics>();

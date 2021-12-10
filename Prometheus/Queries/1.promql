@@ -1,0 +1,16 @@
+https://prometheus.io/docs/prometheus/latest/querying/operators/
+https://prometheus.io/docs/prometheus/latest/querying/functions/
+
+application_counter_example
+
+group (application_counter_example) by (job)
+
+application_counter_example * on (instance) group_left(version) application_label
+
+{instance="host.docker.internal:51080"}
+
+sum(application_counter_example)
+
+sum(application_httprequests_error_rate_per_endpoint_and_status_code_total) by (http_status_code, route)
+
+sum(increase(application_httprequests_error_rate_per_endpoint_and_status_code_total[5m])) by (http_status_code, route)
