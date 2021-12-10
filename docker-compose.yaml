@@ -18,9 +18,20 @@ services:
     restart: always
     ports: 
       - "51080:80"
+    environment:
+      - "ConnectionStrings__Hangfire=Host=host.docker.internal;Port=5432;Database=postgres;Username=postgres;Password=POSTGRES_PASSWORD"
   web-2:
     build: 
       context: .
     restart: always
     ports: 
       - "52080:80"
+    environment:
+      - "ConnectionStrings__Hangfire=Host=host.docker.internal;Port=5432;Database=postgres;Username=postgres;Password=POSTGRES_PASSWORD"
+  postgres:
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment: 
+      POSTGRES_PASSWORD: POSTGRES_PASSWORD

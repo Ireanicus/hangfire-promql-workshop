@@ -1,7 +1,10 @@
 using App.Metrics;
 using App.Metrics.Counter;
+using Hangfire;
+using Hangfire.PostgreSql;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication
+    .CreateBuilder(args);
 
 var services = builder.Services;
 services
@@ -15,11 +18,24 @@ services
 
 services.AddHostedService<LabelMetricHostedService>();
 
+services
+    .AddHangfire(options =>
+    {
+        options.UsePostgreSqlStorage(builder.Configuration.GetConnectionString("Hangfire"),
+            new PostgreSqlStorageOptions
+            {
+            });
+    })
+    .AddHangfireServer(options =>
+    {
+    });
+
 var app = builder.Build();
 
 app.UseMetricsAllMiddleware();
-
 app.UseMetricsAllEndpoints();
+app.UseHangfireDashboard();
+
 app.MapGet("/", () => "Hello World!");
 app.MapGet("/error", () => { throw new Exception("error"); });
 app.MapPost("/error", () => { throw new InvalidOperationException("error"); });
