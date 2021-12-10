@@ -49,4 +49,10 @@ app.MapGet("/customMetric", context =>
     return Task.CompletedTask;
 });
 
+app.MapGet("/long-running", async context =>
+{
+    await Task.Delay(10000);
+    context.Response.StatusCode = 200;
+});
+
 app.Run();
