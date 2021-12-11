@@ -1,4 +1,3 @@
-
 [LogEverything]
 public class SampleJobs
 {
