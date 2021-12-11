@@ -1,7 +1,10 @@
+using System.Reflection;
 using App.Metrics;
 using App.Metrics.Counter;
 using Hangfire;
+using Hangfire.MissionControl;
 using Hangfire.PostgreSql;
+using Hangfire.RecurringJobAdmin;
 
 var builder = WebApplication
     .CreateBuilder(args);
@@ -30,7 +33,13 @@ services
                 new PostgreSqlStorageOptions
                 {
                 })
-            .UseFilter(provider.GetRequiredService<LogEverythingFilter>());
+            .UseFilter(provider.GetRequiredService<LogEverythingFilter>())
+            .UseRecurringJobAdmin(Assembly.GetEntryAssembly())
+            .UseMissionControl(
+                new MissionControlOptions
+                {
+                },
+                Assembly.GetEntryAssembly());
     })
     .AddHangfireServer(options =>
     {
