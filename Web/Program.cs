@@ -17,14 +17,20 @@ services
     .AddMetricsTrackingMiddleware();
 
 services.AddHostedService<LabelMetricHostedService>();
+services.AddHostedService<RecurringJobsHostedService>();
+
+services.AddSingleton<SampleJobs>();
 
 services
-    .AddHangfire(options =>
+    .AddSingleton<LogEverythingFilter>()
+    .AddHangfire((provider, options) =>
     {
-        options.UsePostgreSqlStorage(builder.Configuration.GetConnectionString("Hangfire"),
-            new PostgreSqlStorageOptions
-            {
-            });
+        options
+            .UsePostgreSqlStorage(builder.Configuration.GetConnectionString("Hangfire"),
+                new PostgreSqlStorageOptions
+                {
+                })
+            .UseFilter(provider.GetRequiredService<LogEverythingFilter>());
     })
     .AddHangfireServer(options =>
     {
