@@ -12,5 +12,6 @@
     1. Dashboard
     1. Filters and attribiutes
     1. Database schema
+    1. Extensions
 3. Hangfire & Metrics
     1. Practical workshops
