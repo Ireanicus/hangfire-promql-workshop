@@ -2,6 +2,8 @@ using System.Reflection;
 using App.Metrics;
 using App.Metrics.Counter;
 using Hangfire;
+using Hangfire.Console;
+using Hangfire.Console.Extensions;
 using Hangfire.MissionControl;
 using Hangfire.PostgreSql;
 using Hangfire.RecurringJobAdmin;
@@ -26,6 +28,7 @@ services.AddSingleton<SampleJobs>();
 
 services
     .AddSingleton<LogEverythingFilter>()
+    .AddHangfireConsoleExtensions()
     .AddHangfire((provider, options) =>
     {
         options
@@ -39,7 +42,10 @@ services
                 new MissionControlOptions
                 {
                 },
-                Assembly.GetEntryAssembly());
+                Assembly.GetEntryAssembly())
+            .UseConsole(new ConsoleOptions
+            {
+            });
     })
     .AddHangfireServer(options =>
     {
@@ -50,6 +56,10 @@ var app = builder.Build();
 app.UseMetricsAllMiddleware();
 app.UseMetricsAllEndpoints();
 app.UseHangfireDashboard();
+app.UseHangfireDashboard("/readonly-hangfire", new DashboardOptions
+{
+    IsReadOnlyFunc = context => true
+});
 
 app.MapGet("/", () => "Hello World!");
 app.MapGet("/error", () => { throw new Exception("error"); });
