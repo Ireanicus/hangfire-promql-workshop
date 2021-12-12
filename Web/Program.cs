@@ -16,6 +16,10 @@ services
     .AddMetrics(options =>
     {
         options.OutputMetrics.AsPrometheusPlainText();
+        options.Configuration.Configure(config =>
+        {
+            config.GlobalTags.Add("globalTag", "value");
+        });
     })
     .AddMetricsEndpoints()
     .AddMetricsReportingHostedService()
