@@ -12,6 +12,8 @@ public class SampleJobs
     }
 
     [LogEverything]
+    [DeleteSuceeded]
+    [CustomStatusExampleAttribute]
     [Mission(Name = "GetRandomDigit", Description = "gets digit (0-9)", Queue = "default")]
     public Task<long> GetRandomDigit()
     {

@@ -1,6 +1,6 @@
 # Agenda
 
-1.  .NET Metrics
+1. .NET Metrics
     1. Log vs Metric - Introduction
     1. App.Metrics
     1. Prometheus

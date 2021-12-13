@@ -50,6 +50,7 @@ services
             .UseConsole(new ConsoleOptions
             {
             });
+        
     })
     .AddHangfireServer(options =>
     {
