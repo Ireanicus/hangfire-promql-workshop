@@ -1,4 +1,6 @@
 GET http://localhost:5080
 ###
+GET http://localhost:5080/simple
+###
 
 GET http://localhost:5080/metrics
