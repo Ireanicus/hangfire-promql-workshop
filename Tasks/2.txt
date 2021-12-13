@@ -1,0 +1,3 @@
+Stwórz endpointy, które rzucają różne wyjątki.
+Uderz w różne serwisy w celu stworzenia metryką
+Pogrupuj metryki per metoda http i typ exceptiona za pomocą PROMQL
