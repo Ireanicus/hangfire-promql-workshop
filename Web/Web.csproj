@@ -4,4 +4,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="App.Metrics.AspNetCore.All" Version="4.3.0" />
+    <PackageReference Include="App.Metrics.prometheus" Version="4.3.0" />
+  </ItemGroup>
 </Project>
