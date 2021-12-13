@@ -1,1 +1,2 @@
 sum(up) by (job)
+sum(application_httprequests_exceptions) by (exception, route, job)
