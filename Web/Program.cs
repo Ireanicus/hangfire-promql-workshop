@@ -4,6 +4,8 @@ using App.Metrics.Counter;
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 
+services.AddHostedService<RamMetricHostedService>();
+
 services
     .AddMetrics(options =>
     {
