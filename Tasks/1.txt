@@ -2,3 +2,4 @@ Stworz endoint z metryką GAUGE zawierającą wartość RAM procesu
 * Stwórz hosted service
 
 https://docs.microsoft.com/pl-pl/dotnet/api/system.timers.timer?view=net-6.0
+https://stackoverflow.com/questions/2342023/how-to-measure-the-total-memory-consumption-of-the-current-process-programmatica
