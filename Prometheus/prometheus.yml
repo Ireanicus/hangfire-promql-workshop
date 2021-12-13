@@ -1,4 +1,10 @@
 scrape_configs:
   - job_name: "web"
     static_configs:
-      - targets: ["host.docker.internal:5080"]
+      - targets:
+          [
+            "host.docker.internal:5080",
+            "host.docker.internal:6080",
+            "host.docker.internal:7080",
+            "host.docker.internal:8080"
+          ]
