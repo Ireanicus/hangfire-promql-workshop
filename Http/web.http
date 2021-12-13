@@ -7,3 +7,5 @@ GET http://localhost:5080/error
 
 
 GET http://localhost:5080/metrics
+###
+GET http://localhost:6080/metrics

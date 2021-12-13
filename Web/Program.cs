@@ -23,7 +23,12 @@ app.UseMetricsAllMiddleware();
 app.UseMetricsAllEndpoints();
 
 app.MapGet("/", () => "Hello World!");
-app.MapGet("/error", context => throw new Exception());
+
+app.MapGet("/error", () => { throw new Exception("error"); });
+app.MapPost("/error", () => { throw new InvalidOperationException("error"); });
+app.MapPut("/error", () => { throw new InvalidOperationException("error"); });
+app.MapDelete("/error", () => { throw new IndexOutOfRangeException("error"); });
+
 app.MapGet("/simple", context =>
 {
     var metrics = context.RequestServices.GetRequiredService<IMetrics>();
