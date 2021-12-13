@@ -23,6 +23,7 @@ app.UseMetricsAllMiddleware();
 app.UseMetricsAllEndpoints();
 
 app.MapGet("/", () => "Hello World!");
+app.MapGet("/error", context => throw new Exception());
 app.MapGet("/simple", context =>
 {
     var metrics = context.RequestServices.GetRequiredService<IMetrics>();
