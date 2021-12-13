@@ -1,3 +1,4 @@
+using System.Reflection;
 using App.Metrics;
 using App.Metrics.Counter;
 
@@ -5,11 +6,17 @@ var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 
 services.AddHostedService<RamMetricHostedService>();
+services.AddHostedService<LabelMetricHostedService>();
 
 services
     .AddMetrics(options =>
     {
         options.OutputMetrics.AsPrometheusPlainText();
+        options.Configuration.Configure(config =>
+        {
+            config.GlobalTags.Add("version2",
+                Assembly.GetEntryAssembly()?.GetName()?.Version?.ToString());
+        });
     })
     .AddMetricsEndpoints()
     .AddMetricsReportingHostedService()
