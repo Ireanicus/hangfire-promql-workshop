@@ -1,0 +1,2 @@
+Stworz endoint metryką GAUGE zawierającą wartość RAM procesu
+* Stwórz hosted service
