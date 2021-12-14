@@ -1,5 +1,22 @@
 version: "3.8"
 services:
+  postgres:
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment: 
+      POSTGRES_PASSWORD: password
+  pgadmin4:
+    image: dpage/pgadmin4
+    depends_on:
+      - postgres
+    ports:
+      - "53080:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: "password"
+    restart: always
   prometheus:
     image: prom/prometheus
     restart: always
