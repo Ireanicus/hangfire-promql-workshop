@@ -8,5 +8,7 @@
   <ItemGroup>
     <PackageReference Include="App.Metrics.AspNetCore.All" Version="4.3.0" />
     <PackageReference Include="App.Metrics.prometheus" Version="4.3.0" />
+    <PackageReference Include="Hangfire" Version="1.7.27" />
+    <PackageReference Include="Hangfire.PostgreSql" Version="1.9.4" />
   </ItemGroup>
 </Project>
