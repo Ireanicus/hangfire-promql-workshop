@@ -7,10 +7,15 @@ var services = builder.Services;
 
 services.AddWebMetrics();
 
+services.AddSingleton<RandomizerJob>();
+services.AddSingleton<LogEverythingFilter>();
+
 services
-    .AddHangfire(options =>
+    .AddHangfire((provider, options) =>
     {
-        options.UsePostgreSqlStorage(connectionString);
+        options
+            .UseFilter(provider.GetRequiredService<LogEverythingFilter>())
+            .UsePostgreSqlStorage(connectionString);
     })
     .AddHangfireServer(options =>
     {
