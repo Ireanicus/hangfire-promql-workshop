@@ -1,6 +1,9 @@
 using Hangfire.Server;
 using Hangfire.Console;
+using Hangfire.MissionControl;
 
+
+[MissionLauncher(CategoryName = "SampleJobs")]
 public class RandomizerJob
 {
     private readonly ILogger<RandomizerJob> _logger;
@@ -27,5 +30,23 @@ public class RandomizerJob
         }
 
         return Random.Shared.NextInt64(0, 20);
+    }
+
+    [Mission(Name = "GetRandomDigitMissionControlExample", Description = "gets digit (0-20)", Queue = "default")]
+    public Task<long> GetRandomDigitMissionControlExample()
+    {
+        _logger.LogInformation("Getting random digit");
+        _logger.LogWarning("Getting random digit");
+
+        return Task.FromResult(Random.Shared.NextInt64(0, 20));
+    }
+
+    [Mission(Name = "GetRandomDigitMissionControlExample", Description = "gets digit (0-20)", Queue = "default")]
+    public Task<long> GetRandomDigitMissionControlExample(long value)
+    {
+        _logger.LogInformation("Getting random digit");
+        _logger.LogWarning("Getting random digit");
+
+        return Task.FromResult(Random.Shared.NextInt64(value));
     }
 }

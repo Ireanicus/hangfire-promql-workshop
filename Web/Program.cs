@@ -2,6 +2,9 @@ using Hangfire;
 using Hangfire.Console;
 using Hangfire.PostgreSql;
 using Hangfire.Console.Extensions;
+using Hangfire.MissionControl;
+using System.Reflection;
+using Hangfire.RecurringJobAdmin;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("Hangfire");
@@ -22,7 +25,12 @@ services
             .UseConsole(new ConsoleOptions
             {
                 FollowJobRetentionPolicy = true
-            });
+            })
+            .UseMissionControl(new MissionControlOptions
+            {
+
+            }, Assembly.GetEntryAssembly())
+            .UseRecurringJobAdmin(Assembly.GetEntryAssembly());
     })
     .AddHangfireServer(options =>
     {
