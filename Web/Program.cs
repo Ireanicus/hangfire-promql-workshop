@@ -10,6 +10,13 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("Hangfire");
 var services = builder.Services;
 
+services.AddAuthorization(options =>
+{
+    options.AddPolicy("Anonymous", policy => policy.RequireAssertion(context => true));
+});
+
+services.AddAuthentication();
+
 services.AddWebMetrics();
 
 services.AddSingleton<RandomizerJob>();
@@ -21,14 +28,16 @@ services
     {
         options
             .UseFilter(provider.GetRequiredService<LogEverythingFilter>())
-            .UsePostgreSqlStorage(connectionString)
+            .UsePostgreSqlStorage(connectionString, new PostgreSqlStorageOptions
+            {
+            })
             .UseConsole(new ConsoleOptions
             {
                 FollowJobRetentionPolicy = true
             })
             .UseMissionControl(new MissionControlOptions
             {
-
+                
             }, Assembly.GetEntryAssembly())
             .UseRecurringJobAdmin(Assembly.GetEntryAssembly());
     })
@@ -40,6 +49,7 @@ services.AddHostedService<HangfireReccuringJobHostedService>();
 
 var app = builder.Build();
 
+
 app.UseWebMetrics();
 
 app.UseHangfireDashboard("/hangfire", new DashboardOptions
@@ -50,6 +60,15 @@ app.UseHangfireDashboard("/hangfire-read", new DashboardOptions
 {
     IsReadOnlyFunc = context => true,
     DisplayStorageConnectionString = false
+});
+
+app.UseAuthorization();
+app.UseAuthentication();
+
+
+app.MapHangfireDashboardWithAuthorizationPolicy("Anonymous", "/hangfire-auth", new DashboardOptions
+{
+
 });
 
 app.Run();

@@ -1,7 +1,7 @@
 using Hangfire.Server;
 using Hangfire.Console;
 using Hangfire.MissionControl;
-
+using Hangfire;
 
 [MissionLauncher(CategoryName = "SampleJobs")]
 public class RandomizerJob

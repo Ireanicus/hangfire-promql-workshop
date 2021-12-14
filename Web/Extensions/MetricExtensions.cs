@@ -31,8 +31,6 @@ public static class MetricExtensions
         app.UseMetricsAllMiddleware();
         app.UseMetricsAllEndpoints();
 
-        app.MapGet("/", () => "Hello World!");
-
         app.MapGet("/error", () => { throw new Exception("error"); });
         app.MapPost("/error", () => { throw new InvalidOperationException("error"); });
         app.MapPut("/error", () => { throw new InvalidOperationException("error"); });
