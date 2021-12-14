@@ -9,6 +9,7 @@ public class RandomizerJob
 
     [LogEverything]
     [FailIfIntegerGreatherThan(10)]
+    [DeleteSuceededAttribute]
     public Task<long> GetRandomDigit()
     {
         return Task.FromResult(Random.Shared.NextInt64(0, 20));
