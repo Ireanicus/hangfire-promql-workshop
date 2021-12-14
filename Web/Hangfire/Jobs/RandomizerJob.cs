@@ -10,6 +10,6 @@ public class RandomizerJob
     [LogEverything]
     public Task<long> GetRandomDigit()
     {
-        return Task.FromResult(Random.Shared.NextInt64());
+        return Task.FromResult(Random.Shared.NextInt64(0, 20));
     }
 }

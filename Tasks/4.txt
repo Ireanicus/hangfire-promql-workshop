@@ -1,0 +1,1 @@
+Stwórz filtr, który jeśli job wynik fziałania metody GetRandom digit jest > 10.To rzuci wyjątek
