@@ -4,11 +4,11 @@ public class HangfireReccuringJobHostedService : IHostedService
 {
     public Task StartAsync(CancellationToken cancellationToken)
     {
-        RecurringJob.AddOrUpdate<RandomizerJob>(service => service.GetRandomDigit(), Cron.Minutely());
+        RecurringJob.AddOrUpdate<RandomizerJob>(service => service.GetRandomDigit(null), Cron.Minutely());
         RecurringJob.AddOrUpdate(() => Console.WriteLine(), Cron.Minutely());
 
 
-        BackgroundJob.Enqueue<RandomizerJob>(service => service.GetRandomDigit());
+        BackgroundJob.Enqueue<RandomizerJob>(service => service.GetRandomDigit(null));
         return Task.CompletedTask;
     }
 

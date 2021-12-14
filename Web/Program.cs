@@ -1,5 +1,7 @@
 using Hangfire;
+using Hangfire.Console;
 using Hangfire.PostgreSql;
+using Hangfire.Console.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("Hangfire");
@@ -11,11 +13,16 @@ services.AddSingleton<RandomizerJob>();
 services.AddSingleton<LogEverythingFilter>();
 
 services
+    .AddHangfireConsoleExtensions()
     .AddHangfire((provider, options) =>
     {
         options
             .UseFilter(provider.GetRequiredService<LogEverythingFilter>())
-            .UsePostgreSqlStorage(connectionString);
+            .UsePostgreSqlStorage(connectionString)
+            .UseConsole(new ConsoleOptions
+            {
+                FollowJobRetentionPolicy = true
+            });
     })
     .AddHangfireServer(options =>
     {
