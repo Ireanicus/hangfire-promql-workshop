@@ -21,6 +21,9 @@ services.AddWebMetrics();
 
 services.AddSingleton<RandomizerJob>();
 services.AddSingleton<LogEverythingFilter>();
+services.AddSingleton<QueueService>();
+services.AddSingleton<CustomQueueFilter>();
+services.AddSingleton<MultiQueueExample>();
 
 services
     .AddHangfireConsoleExtensions()
@@ -28,6 +31,7 @@ services
     {
         options
             .UseFilter(provider.GetRequiredService<LogEverythingFilter>())
+            .UseFilter(provider.GetRequiredService<CustomQueueFilter>())
             .UsePostgreSqlStorage(connectionString, new PostgreSqlStorageOptions
             {
             })
@@ -37,12 +41,13 @@ services
             })
             .UseMissionControl(new MissionControlOptions
             {
-                
+
             }, Assembly.GetEntryAssembly())
             .UseRecurringJobAdmin(Assembly.GetEntryAssembly());
     })
     .AddHangfireServer(options =>
     {
+        options.Queues = new[] { "default" };
     });
 
 services.AddHostedService<HangfireReccuringJobHostedService>();
