@@ -1,0 +1,1 @@
+Stwórz filtr, który w przypadku gdy job bedzie przechodził do stanu succeedeed - usunie go
