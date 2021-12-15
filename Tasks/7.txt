@@ -1,0 +1,6 @@
+Stwórz histgram czasu przetwarzania joba
+
+_metrics.Measure.Histogram.Update(new App.Metrics.Histogram.HistogramOptions
+{
+
+}, 1);
