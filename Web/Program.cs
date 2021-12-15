@@ -53,6 +53,7 @@ services
     });
 
 services.AddHostedService<HangfireReccuringJobHostedService>();
+services.AddHostedService<HangfireDashboardMetricsHostedService>();
 
 var app = builder.Build();
 

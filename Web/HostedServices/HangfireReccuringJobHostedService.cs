@@ -1,4 +1,5 @@
 using Hangfire;
+using Hangfire.Dashboard;
 
 public class HangfireReccuringJobHostedService : IHostedService
 {

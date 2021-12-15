@@ -1,2 +1,5 @@
 sum(up) by (job)
 sum(application_httprequests_exceptions) by (exception, route, job)
+
+
+sum(increase(application_httprequests_error_rate_per_endpoint_and_status_code_total[5m])) by (http_status_code, route)
