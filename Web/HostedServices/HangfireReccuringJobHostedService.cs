@@ -6,7 +6,8 @@ public class HangfireReccuringJobHostedService : IHostedService
     {
         RecurringJob.AddOrUpdate<RandomizerJob>(service => service.GetRandomDigit(null), Cron.Minutely());
         RecurringJob.AddOrUpdate(() => Console.WriteLine(), Cron.Minutely());
-
+        RecurringJob.AddOrUpdate<RandomizerJob>(service => service.FailIfAbove5(), Cron.Minutely());
+        RecurringJob.AddOrUpdate<RandomizerJob>(service => service.Fail(), Cron.Minutely());
 
         BackgroundJob.Enqueue<RandomizerJob>(service => service.GetRandomDigit(null));
         return Task.CompletedTask;

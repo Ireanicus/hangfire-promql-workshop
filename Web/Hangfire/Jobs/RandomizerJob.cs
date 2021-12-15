@@ -49,4 +49,21 @@ public class RandomizerJob
 
         return Task.FromResult(Random.Shared.NextInt64(value));
     }
+
+    [Mission(Name = "FailIfAbove5", Description = "gets digit (0-10)", Queue = "default")]
+    public Task<long> FailIfAbove5()
+    {
+        var value = Random.Shared.NextInt64(0, 10);
+
+        if (value > 5)
+            throw new ArgumentException($"Number is {value}");
+
+        return Task.FromResult(value);
+    }
+
+    [Mission(Name = "Fail", Description = "FailI", Queue = "default")]
+    public Task Fail()
+    {
+        throw new Exception();
+    }
 }
