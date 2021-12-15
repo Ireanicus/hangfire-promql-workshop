@@ -3,3 +3,5 @@ https://prometheus.io/docs/prometheus/latest/querying/functions/
 
 https://www.app-metrics.io/getting-started/metric-types/histograms/
 https://www.app-metrics.io/getting-started/metric-types/
+
+https://docs.hangfire.io/en/latest/background-methods/using-cancellation-tokens.html

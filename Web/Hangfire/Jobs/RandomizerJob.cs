@@ -2,6 +2,7 @@ using Hangfire.Server;
 using Hangfire.Console;
 using Hangfire.MissionControl;
 using Hangfire;
+using Hangfire.Dashboard;
 
 [MissionLauncher(CategoryName = "SampleJobs")]
 public class RandomizerJob
@@ -65,5 +66,32 @@ public class RandomizerJob
     public Task Fail()
     {
         throw new Exception();
+    }
+
+    [Mission(Name = "LongRunnning", Description = "LongRunnning", Queue = "default")]
+    public async Task LongRunnning(CancellationToken token)
+    {
+        try
+        {
+            token.Register(OnCancelled);
+
+            for (int i = 0; i < 100; i++)
+            {
+                token.ThrowIfCancellationRequested();
+                _logger.LogInformation(i.ToString());
+
+                await Task.Delay(1000);
+            }
+        }
+        catch (OperationCanceledException e)
+        {
+            _logger.LogError(e, "Errored");
+        }
+
+    }
+
+    public void OnCancelled()
+    {
+        _logger.LogError("OnCancelled");
     }
 }

@@ -25,6 +25,7 @@ services.AddSingleton<QueueService>();
 services.AddSingleton<CustomQueueFilter>();
 services.AddSingleton<MultiQueueExample>();
 services.AddSingleton<StateMetricFilter>();
+services.AddSingleton<DurationHistogramFilter>();
 
 services
     .AddHangfireConsoleExtensions()
@@ -34,6 +35,7 @@ services
             .UseFilter(provider.GetRequiredService<LogEverythingFilter>())
             .UseFilter(provider.GetRequiredService<CustomQueueFilter>())
             .UseFilter(provider.GetRequiredService<StateMetricFilter>())
+            .UseFilter(provider.GetRequiredService<DurationHistogramFilter>())
             .UsePostgreSqlStorage(connectionString, new PostgreSqlStorageOptions
             {
             })
